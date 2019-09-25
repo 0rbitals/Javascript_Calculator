@@ -10,6 +10,7 @@ class App extends Component {
     this.addNumber = this.addNumber.bind(this);
     this.calculate = this.calculate.bind(this);
     this.addOperator = this.addOperator.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   addNumber(event) {
@@ -25,6 +26,12 @@ class App extends Component {
         currentValue: prevState.currentValue.concat(value),
       }));
     }
+  }
+
+  clear() {
+    this.setState({
+      currentValue: '0',
+    });
   }
 
   addOperator(event) {
@@ -55,6 +62,7 @@ class App extends Component {
         <Calculator
           currentValue={currentValue}
           addOperator={this.addOperator}
+          clear={this.clear}
           addNumber={this.addNumber}
           calculate={this.calculate}
         />

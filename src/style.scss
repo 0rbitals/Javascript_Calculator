@@ -1,3 +1,33 @@
-div {
-  
+body{
+  background-color: grey;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#display {
+  color: #41f716;
+  line-height: 50px;
+}
+
+button {
+  color: #050804;
+  border: none;
+  background-color: #7db76e;
+  outline: .05em solid black;
+  width: 75px;
+  height: 75px;
+}
+
+button:hover {
+  color: black;
+  background-color: #b7eaab;
+}
+
+.calculator {
+  width: 320px;
+  background-color: #020402;
 }
