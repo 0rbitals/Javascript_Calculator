@@ -28,10 +28,10 @@ const Calculator = (props) => {
         <button type="button" id="eight" onClick={addNumber} value="8">8</button>
         <button type="button" id="nine" onClick={addNumber} value="9">9</button>
         <button type="button" id="decimal" onClick={addNumber} value=".">.</button>
-        <button type="button" id="add" onClick={addOperator} value="+">+</button>
-        <button type="button" id="subtract" onClick={addOperator} value="-">-</button>
-        <button type="button" id="multiply" onClick={addOperator} value="*">*</button>
-        <button type="button" id="divide" onClick={addOperator} value="/">/</button>
+        <button type="button" id="add" onClick={addOperator} value=" + ">+</button>
+        <button type="button" id="subtract" onClick={addOperator} value=" - ">-</button>
+        <button type="button" id="multiply" onClick={addOperator} value=" * ">*</button>
+        <button type="button" id="divide" onClick={addOperator} value=" / ">/</button>
         <button type="button" id="equals" onClick={calculate} value="=">=</button>
       </div>
     </div>

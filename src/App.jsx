@@ -6,11 +6,13 @@ class App extends Component {
     super();
     this.state = {
       currentValue: '0',
+      currentOperator: '',
     };
     this.addNumber = this.addNumber.bind(this);
     this.calculate = this.calculate.bind(this);
     this.addOperator = this.addOperator.bind(this);
     this.clear = this.clear.bind(this);
+    this.updateValue = this.updateValue.bind(this);
   }
 
   addNumber(event) {
@@ -19,8 +21,9 @@ class App extends Component {
     if (currentValue === '0') {
       this.setState({
         currentValue: value,
-        currentOperator: '',
       });
+    } else if (currentValue.includes('.') && value === '.') {
+      throw new Error('Invalid input');
     } else {
       this.setState((prevState) => ({
         currentValue: prevState.currentValue.concat(value),
@@ -43,15 +46,45 @@ class App extends Component {
   }
 
   calculate() {
-    const { currentValue, currentOperator } = this.state;
-    const operation = {
-      '+': currentValue.split(currentOperator).reduce((acc, next) => Number(acc) + Number(next)),
-      '-': currentValue.split(currentOperator).reduce((acc, next) => Number(acc) - Number(next)),
-      '/': currentValue.split(currentOperator).reduce((acc, next) => Number(acc) / Number(next)),
-      '*': currentValue.split(currentOperator).reduce((acc, next) => Number(acc) * Number(next)),
-    };
+    const { currentValue } = this.state;
+    const newValue = currentValue.split(' ');
+    // loop through the array, evaluate the multiplications and divisions first
+    // and only leave the total (delete the operation when done (e.g x * y) )
+    // keep doing that then go on to the addition and subtraction ops
+    // until one value is left
+    while (newValue.length > 1) {
+      newValue.forEach((val, index, arr) => {
+        if (val === '*') {
+          const temp = Number(arr[index - 1]) * Number(arr[index + 1]);
+          arr[index - 1] = temp;
+          newValue.splice(index, 2);
+        } else if (val === '/') {
+          const temp = Number(arr[index - 1]) / Number(arr[index + 1]);
+          arr[index - 1] = temp;
+          newValue.splice(index, 2);
+        }
+      });
+      if (!newValue.includes('*') && !newValue.includes('/')) {
+        newValue.forEach((val, index, arr) => {
+          if (val === '+') {
+            const temp = Number(arr[index - 1]) + Number(arr[index + 1]);
+            arr[index - 1] = temp;
+            newValue.splice(index, 2);
+          } else if (val === '-') {
+            const temp = Number(arr[index - 1]) - Number(arr[index + 1]);
+            arr[index - 1] = temp;
+            newValue.splice(index, 2);
+          }
+        });
+      }
+    }
+    // call the function that will change the display with the new value
+    this.updateValue(newValue.toString());
+  }
+
+  updateValue(val) {
     this.setState({
-      currentValue: operation[currentOperator].toString(),
+      currentValue: val,
     });
   }
 
