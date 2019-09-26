@@ -1,33 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+
 body{
   background-color: grey;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 15%;
 }
 
 #display {
   color: #41f716;
   line-height: 50px;
+  text-align: right;
+  padding-right: 15px;
+}
+
+#buttons {
+  padding: 5px;
 }
 
 button {
   color: #050804;
+  font-weight: bold;
   border: none;
+  border-radius: 2px;
   background-color: #7db76e;
   outline: .05em solid black;
   width: 75px;
   height: 75px;
 }
 
+#clear {
+  background-color: rgb(255, 120, 9);
+  width: 150px;
+}
+
+#equals {
+  background-color: rgb(45, 226, 9);
+  width: 73%;
+}
+
+#equals:hover {
+  background-color: rgb(226, 70, 9);
+}
+
+#clear:hover {
+  background-color: rgb(226, 70, 9);
+}
+
 button:hover {
   color: black;
-  background-color: #b7eaab;
+  background-color: rgb(226, 70, 9);
 }
 
 .calculator {
+  border-radius: 3px;
   width: 320px;
   background-color: #020402;
+  box-shadow: 5px 5px 2px green;
+}
+
+#signature {
+  color: white;
+  align-self: flex-end;
+  margin-left: 15px;
+  background-color: black;
+  border-radius: 3px;
+}
+
+a {
+  color: rgb(226, 70, 9);
+  padding-left: 5px;
+  text-decoration-line: none;
 }

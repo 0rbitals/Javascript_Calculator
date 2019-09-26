@@ -16,23 +16,29 @@ const Calculator = (props) => {
         <div id="display">
           {currentValue}
         </div>
-        <button type="button" id="clear" onClick={clear}>AC</button>
-        <button type="button" id="zero" onClick={addNumber} value="0">0</button>
-        <button type="button" id="one" onClick={addNumber} value="1">1</button>
-        <button type="button" id="two" onClick={addNumber} value="2">2</button>
-        <button type="button" id="three" onClick={addNumber} value="3">3</button>
-        <button type="button" id="four" onClick={addNumber} value="4">4</button>
-        <button type="button" id="five" onClick={addNumber} value="5">5</button>
-        <button type="button" id="six" onClick={addNumber} value="6">6</button>
-        <button type="button" id="seven" onClick={addNumber} value="7">7</button>
-        <button type="button" id="eight" onClick={addNumber} value="8">8</button>
-        <button type="button" id="nine" onClick={addNumber} value="9">9</button>
-        <button type="button" id="decimal" onClick={addNumber} value=".">.</button>
-        <button type="button" id="add" onClick={addOperator} value=" + ">+</button>
-        <button type="button" id="subtract" onClick={addOperator} value=" - ">-</button>
-        <button type="button" id="multiply" onClick={addOperator} value=" * ">*</button>
-        <button type="button" id="divide" onClick={addOperator} value=" / ">/</button>
-        <button type="button" id="equals" onClick={calculate} value="=">=</button>
+        <div id="buttons">
+          <button type="button" id="clear" onClick={clear}>AC</button>
+          <button type="button" id="zero" onClick={addNumber} value="0">0</button>
+          <button type="button" id="one" onClick={addNumber} value="1">1</button>
+          <button type="button" id="two" onClick={addNumber} value="2">2</button>
+          <button type="button" id="three" onClick={addNumber} value="3">3</button>
+          <button type="button" id="four" onClick={addNumber} value="4">4</button>
+          <button type="button" id="five" onClick={addNumber} value="5">5</button>
+          <button type="button" id="six" onClick={addNumber} value="6">6</button>
+          <button type="button" id="seven" onClick={addNumber} value="7">7</button>
+          <button type="button" id="eight" onClick={addNumber} value="8">8</button>
+          <button type="button" id="nine" onClick={addNumber} value="9">9</button>
+          <button type="button" id="decimal" onClick={addNumber} value=".">.</button>
+          <button type="button" id="add" onClick={addOperator} value=" + ">+</button>
+          <button type="button" id="subtract" onClick={addOperator} value=" - ">-</button>
+          <button type="button" id="multiply" onClick={addOperator} value=" * ">*</button>
+          <button type="button" id="divide" onClick={addOperator} value=" / ">/</button>
+          <button type="button" id="equals" onClick={calculate} value="=">=</button>
+        </div>
+      </div>
+      <div id="signature">
+        -Coded & Designed by
+        <a href="https://github.com/0rbitals/"> Mahdi</a>
       </div>
     </div>
   );
