@@ -6,7 +6,7 @@ class App extends Component {
     super();
     this.state = {
       currentValue: '0',
-      currentOperator: '',
+      decimalBool: false,
     };
     this.addNumber = this.addNumber.bind(this);
     this.calculate = this.calculate.bind(this);
@@ -17,13 +17,21 @@ class App extends Component {
 
   addNumber(event) {
     const { value } = event.target;
-    const { currentValue } = this.state;
+    const { currentValue, decimalBool } = this.state;
     if (currentValue === '0') {
       this.setState({
         currentValue: value,
       });
-    } else if (currentValue.includes('.') && value === '.') {
+    } else if (currentValue.endsWith('.') && value === '.') {
       throw new Error('Invalid input');
+    } else if (value === '.') {
+      console.log("I'm here");
+      if (decimalBool === false) {
+        this.setState((prevState) => ({
+          currentValue: prevState.currentValue.concat(value),
+          decimalBool: true,
+        }));
+      }
     } else {
       this.setState((prevState) => ({
         currentValue: prevState.currentValue.concat(value),
@@ -34,14 +42,16 @@ class App extends Component {
   clear() {
     this.setState({
       currentValue: '0',
+      decimalBool: false,
     });
   }
 
   addOperator(event) {
     const { value } = event.target;
+    const { decimalBool } = this.state;
     this.setState((prevState) => ({
-      currentOperator: value,
       currentValue: prevState.currentValue.concat(value),
+      decimalBool: false,
     }));
   }
 
@@ -53,6 +63,7 @@ class App extends Component {
     // keep doing that then go on to the addition and subtraction ops
     // until one value is left
     while (newValue.length > 1) {
+      console.log(newValue);
       newValue.forEach((val, index, arr) => {
         if (val === '*') {
           const temp = Number(arr[index - 1]) * Number(arr[index + 1]);
@@ -78,6 +89,7 @@ class App extends Component {
         });
       }
     }
+    console.log(newValue);
     // call the function that will change the display with the new value
     this.updateValue(newValue.toString());
   }
