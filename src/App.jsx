@@ -48,7 +48,6 @@ class App extends Component {
 
   addOperator(event) {
     const { value } = event.target;
-    const { decimalBool } = this.state;
     this.setState((prevState) => ({
       currentValue: prevState.currentValue.concat(value),
       decimalBool: false,
