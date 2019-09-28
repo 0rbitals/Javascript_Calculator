@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Calculator from './Calculator';
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
       currentValue: '0',
+      doubleOperator: false,
+      operators: [],
+      negativeNum: false,
       decimalBool: false,
     };
     this.addNumber = this.addNumber.bind(this);
@@ -25,16 +28,19 @@ class App extends Component {
     } else if (currentValue.endsWith('.') && value === '.') {
       throw new Error('Invalid input');
     } else if (value === '.') {
-      console.log("I'm here");
       if (decimalBool === false) {
         this.setState((prevState) => ({
           currentValue: prevState.currentValue.concat(value),
+          doubleOperator: false,
+          negativeNum: false,
           decimalBool: true,
         }));
       }
     } else {
       this.setState((prevState) => ({
         currentValue: prevState.currentValue.concat(value),
+        doubleOperator: false,
+        negativeNum: false,
       }));
     }
   }
@@ -42,16 +48,47 @@ class App extends Component {
   clear() {
     this.setState({
       currentValue: '0',
+      doubleOperator: false,
+      negativeNum: false,
       decimalBool: false,
     });
   }
 
   addOperator(event) {
     const { value } = event.target;
-    this.setState((prevState) => ({
-      currentValue: prevState.currentValue.concat(value),
-      decimalBool: false,
-    }));
+    const {
+      currentValue, doubleOperator, operators, negativeNum,
+    } = this.state;
+    if (!doubleOperator) {
+      this.setState((prevState) => ({
+        currentValue: prevState.currentValue.concat(value),
+        operators: [...operators, value],
+        doubleOperator: true,
+        decimalBool: false,
+      }));
+    } else if (value === ' - ' && !negativeNum) {
+      this.setState((prevState) => ({
+        currentValue: prevState.currentValue.concat('-'),
+        negativeNum: true,
+        decimalBool: false,
+      }));
+    } else if (doubleOperator) {
+      let newVal;
+      if (negativeNum) {
+        newVal = currentValue.slice(0, currentValue.length - 4);
+      } else {
+        newVal = currentValue.slice(0, currentValue.length - 3);
+      }
+      this.setState({
+        currentValue: newVal.concat(value),
+        decimalBool: false,
+      });
+    }
+    if (currentValue === '0') {
+      this.setState({
+        currentValue: value,
+      });
+    }
   }
 
   calculate() {
@@ -62,7 +99,6 @@ class App extends Component {
     // keep doing that then go on to the addition and subtraction ops
     // until one value is left
     while (newValue.length > 1) {
-      console.log(newValue);
       newValue.forEach((val, index, arr) => {
         if (val === '*') {
           const temp = Number(arr[index - 1]) * Number(arr[index + 1]);
@@ -88,7 +124,6 @@ class App extends Component {
         });
       }
     }
-    console.log(newValue);
     // call the function that will change the display with the new value
     this.updateValue(newValue.toString());
   }
